@@ -16,7 +16,7 @@ function DescobrirStand() {
     setCarregando(true);
 
     try {
-      const res = await api.post("/stand/descobrir", {
+      const res = await api.post("/api/stand/descobrir", {
         nome,
         dataNascimento,
       });
