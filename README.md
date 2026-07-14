@@ -1,16 +1,66 @@
-# React + Vite
+# Descubra seu Stand — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Interface web feita em **React** para consumir a API que descobre o Stand (JoJo's Bizarre Adventure) do usuário a partir da data de nascimento.
 
-Currently, two official plugins are available:
+## Sobre o projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+O usuário informa a data de nascimento, o front envia essa informação para o backend (Spring Boot) via requisição HTTP, e exibe na tela o Stand descoberto, junto com o arcano correspondente.
 
-## React Compiler
+## Tecnologias
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- Axios (requisições HTTP)
+- Vercel (deploy)
 
-## Expanding the Oxlint configuration
+## 📁 Estrutura principal
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```
+src/
+├── axios.js             # Configuração da instância do Axios (baseURL da API)
+├── DescobrirStand.jsx    # Componente principal com o formulário e exibição do resultado
+└── App.jsx               # Componente raiz da aplicação
+```
+
+## Configuração
+
+No arquivo `axios.js`, configure a `baseURL` apontando para o endereço do backend:
+
+```js
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "URL_DO_SEU_BACKEND_AQUI",
+});
+
+export default api;
+```
+
+> Troque `URL_DO_SEU_BACKEND_AQUI` pelo endereço onde o backend está rodando (local ou em produção).
+
+## Como rodar localmente
+
+1. Clone o repositório
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+3. Configure o `axios.js` com a URL do backend (local ou deploy)
+4. Rode o projeto:
+   ```bash
+   npm run dev
+   ```
+5. Acesse pelo endereço indicado no terminal (geralmente `http://localhost:5173`)
+
+## Integração com o backend
+
+O componente `DescobrirStand.jsx` faz uma requisição `POST` para o endpoint `/api/stand/descobrir` do backend, enviando a data de nascimento informada pelo usuário, e exibe o Stand retornado.
+
+Se estiver testando localmente com o backend também local, verifique se o CORS do backend está liberando a origem do front (ex: `http://localhost:5173`).
+
+## Status
+
+Projeto funcional, com frontend e backend integrados e implantados em produção (React no frontend, Spring Boot no backend).
+
+## ✍️ Autor
+
+Ryan Marques Monteiro Falcão — projeto criado como forma de aprendizado prático de React e integração com uma API Spring Boot.
