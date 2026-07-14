@@ -16,7 +16,7 @@ function DescobrirStand() {
     setCarregando(true);
 
     try {
-      const res = await api.post("/api/stand/descobrir", {
+      const res = await api.post("/stand/descobrir", {
         nome,
         dataNascimento,
       });
@@ -31,16 +31,24 @@ function DescobrirStand() {
 
   return (
     <div className="cosmos">
-      {/* Onomatopeias JoJo Flutuantes de Fundo */}
-      <div className="jojo-ambient left-1">ゴ</div>
-      <div className="jojo-ambient left-2">ゴ</div>
-      <div className="jojo-ambient right-1">ゴ</div>
-      <div className="jojo-ambient right-2">ゴ</div>
+      {/* Onomatopeias JoJo (Ocultas em telas muito pequenas via CSS) */}
+      <div className="jojo-ambient left-1" aria-hidden="true">
+        ゴ
+      </div>
+      <div className="jojo-ambient left-2" aria-hidden="true">
+        ゴ
+      </div>
+      <div className="jojo-ambient right-1" aria-hidden="true">
+        ゴ
+      </div>
+      <div className="jojo-ambient right-2" aria-hidden="true">
+        ゴ
+      </div>
 
       <div className="stars"></div>
 
       <div className="main-container">
-        {/* Lado Esquerdo: Formulário / Invocação */}
+        {/* Lado Esquerdo: Painel de Invocação */}
         <div className="stand-card form-side">
           <div className="titulo">
             <h1>STAND PROUD</h1>
@@ -57,13 +65,12 @@ function DescobrirStand() {
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
                 required
+                autoComplete="off"
               />
             </div>
 
             <div className="input-group">
-              <label htmlFor="dataNascimento">
-                Alinhamento Estelar (Nascimento)
-              </label>
+              <label htmlFor="dataNascimento">Alinhamento Estelar</label>
               <input
                 id="dataNascimento"
                 type="date"
