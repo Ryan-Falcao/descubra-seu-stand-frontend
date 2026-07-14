@@ -1,0 +1,377 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Poppins:wght@300;400;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #030208;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+}
+
+/* =========================
+   AMBIENTE & BACKGROUND JOJO
+========================= */
+.cosmos {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 60px 20px;
+  background: radial-gradient(circle at center, #130524 0%, #030208 80%);
+}
+
+/* Efeito de linhas de ação de Mangá no fundo */
+.cosmos::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://wallpapercave.com/wp/wp9114163.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  z-index: 0;
+}
+
+/* Onomatopeias Japonesas "Gogogogo" flutuando nas laterais */
+.jojo-ambient {
+  position: absolute;
+  font-family: "Impact", "Arial Black", sans-serif;
+  font-size: 70px;
+  color: rgba(141, 82, 255, 0.15);
+  text-shadow: 0 0 10px rgba(255, 0, 128, 0.2);
+  user-select: none;
+  animation: pulseGogo 3s ease-in-out infinite alternate;
+  z-index: 1;
+}
+.left-1 {
+  top: 15%;
+  left: 8%;
+  transform: rotate(-15deg);
+}
+.left-2 {
+  bottom: 20%;
+  left: 5%;
+  font-size: 110px;
+  animation-delay: 0.5s;
+}
+.right-1 {
+  top: 25%;
+  right: 7%;
+  font-size: 90px;
+  transform: rotate(15deg);
+  animation-delay: 1s;
+}
+.right-2 {
+  bottom: 15%;
+  right: 10%;
+  transform: rotate(-5deg);
+  animation-delay: 1.5s;
+}
+
+@keyframes pulseGogo {
+  0% {
+    transform: scale(1) translateY(0) rotate(-10deg);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(1.1) translateY(-15px) rotate(5deg);
+    opacity: 0.25;
+    color: #ff007f;
+  }
+}
+
+/* Container que divide a tela quando o resultado aparece (Evita ficar tudo empilhado no meio) */
+.main-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 50px;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================
+   PAINEL DE INVOCAÇÃO (ESQUERDA)
+========================= */
+.form-side {
+  width: 100%;
+  max-width: 450px;
+  background: rgba(12, 8, 24, 0.85);
+  border: 3px solid #3d1d6d;
+  box-shadow:
+    0 0 30px rgba(141, 82, 255, 0.3),
+    inset 0 0 15px rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  border-radius: 4px; /* Cantos mais retos dão ar de quadrinho/jojo */
+  position: relative;
+}
+
+.form-side::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  pointer-events: none;
+}
+
+.form-side h1 {
+  font-family: "Cinzel", serif;
+  font-weight: 900;
+  font-size: 38px;
+  text-align: center;
+  color: #ff007f;
+  text-shadow: 3px 3px 0px #ffd700;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #cca43b;
+  text-align: center;
+  font-size: 13px;
+  font-family: "Cinzel", serif;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+}
+
+/* Inputs Estilizados */
+.input-group label {
+  display: block;
+  color: #b58eff;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.stand-form input {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid #3d1d6d;
+  background: #090612;
+  color: #ffffff;
+  font-size: 16px;
+  border-radius: 0;
+  transition: all 0.3s;
+}
+
+.stand-form input:focus {
+  border-color: #ffd700;
+  outline: none;
+  box-shadow: 0 0 15px rgba(255, 215, gold, 0.4);
+  background: #110b24;
+}
+
+/* Botão de Invocação Estilo Shonen Clássico */
+.btn-evoke {
+  width: 100%;
+  margin-top: 25px;
+  padding: 16px;
+  border: 2px solid #ffd700;
+  background: linear-gradient(135deg, #4a0e7a 0%, #1a0533 100%);
+  color: #ffd700;
+  font-family: "Cinzel", serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease;
+}
+
+.btn-evoke:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ff007f 0%, #4a0e7a 100%);
+  color: #ffffff;
+  border-color: #ffffff;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 25px rgba(255, 0, 127, 0.6);
+}
+
+/* =========================
+   A CARTA DE TARÔ (DIREITA)
+========================= */
+.tarot-card-wrapper {
+  animation: cardDraw 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  perspective: 1000px;
+}
+
+@keyframes cardDraw {
+  from {
+    opacity: 0;
+    transform: translateX(100px) rotateY(-30deg) rotate(5deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotateY(0) rotate(0);
+  }
+}
+
+.tarot-card {
+  width: 380px;
+  background: #0b0714;
+  border: 6px double #cca43b; /* Borda dupla dourada clássica de tarô */
+  padding: 18px;
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.8),
+    0 0 30px rgba(181, 142, 255, 0.2);
+  position: relative;
+}
+
+/* Moldura interna fina */
+.tarot-inner-border {
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 580px;
+}
+
+.card-number {
+  font-family: "Cinzel", serif;
+  color: #cca43b;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.constelacao {
+  color: #ff007f;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+}
+
+/* Moldura gótica ao redor da imagem do Stand */
+.frame-imagem {
+  width: 100%;
+  height: 240px;
+  border: 2px solid #3d1d6d;
+  background: #050308;
+  padding: 10px;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9);
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.imagemStand {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 15px rgba(255, 0, 127, 0.5));
+  animation: standFloat 3.5s ease-in-out infinite;
+}
+
+@keyframes standFloat {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 15px rgba(255, 0, 127, 0.5));
+  }
+  50% {
+    transform: translateY(-8px) scale(1.03);
+    filter: drop-shadow(0 0 25px rgba(0, 255, 255, 0.7));
+  }
+}
+
+/* Textos da Carta */
+.tarot-header h2 {
+  font-family: "Cinzel", serif;
+  font-size: 28px;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(181, 142, 255, 0.8);
+  text-transform: uppercase;
+}
+
+.tarot-header h3 {
+  font-size: 13px;
+  text-align: center;
+  color: #cca43b;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+/* Caixa de atributos no meio da carta */
+.tarot-info-box {
+  width: 100%;
+  border-top: 1px dashed rgba(255, 215, 0, 0.3);
+  border-bottom: 1px dashed rgba(255, 215, 0, 0.3);
+  padding: 10px 0;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.info-item strong {
+  display: block;
+  font-family: "Cinzel", serif;
+  font-size: 11px;
+  color: #ff007f;
+  letter-spacing: 1px;
+}
+
+.info-item span {
+  font-family: "Cinzel", serif;
+  font-size: 18px;
+  color: #ffd700;
+  font-weight: 700;
+}
+
+.descricao {
+  color: #ced0ff;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.tarot-footer-symbol {
+  margin-top: auto;
+  color: #cca43b;
+  font-size: 18px;
+}
+
+/* =========================
+   OUTROS DETALHES & RESPONSIVO
+========================= */
+.erro {
+  margin-top: 20px;
+  text-align: center;
+  color: #ff4a4a;
+  font-size: 13px;
+  border-left: 3px solid #ff4a4a;
+  background: rgba(255, 74, 74, 0.1);
+  padding: 8px;
+}
+
+/* Responsividade para telas menores (muda layout de linha para coluna) */
+@media (max-width: 900px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .jojo-ambient {
+    display: none; /* Desativa onomatopeias no mobile para não poluir */
+  }
+
+  .tarot-card {
+    width: 100%;
+    max-width: 360px;
+  }
+}
